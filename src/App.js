@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./components/Home";
-import axios from "axios";
 import Navbar from "./components/partials/Navbar";
 import Footer from "./components/partials/Footer";
 import Login from "./components/forms/Login";
@@ -16,17 +15,20 @@ import Main from "./components/Main";
 import { Provider } from "react-redux";
 import store from "./store";
 import Notfound from "./components/partials/Notfound";
+import api from "./utils/api";
 
 function App() {
   const [locals, setlocals] = useState("");
   const [isvalue, setvalue] = useState(false);
 
   useEffect(() => {
+    const Token = localStorage.getItem("token");
     async function fetchMyApi() {
-      const localres = await axios.get("/api/locals");
+      const localres = await api.get("/api/locals");
       setlocals(localres.data);
     }
-    fetchMyApi();
+    if (Token) fetchMyApi();
+    else setlocals("");
   }, [isvalue]);
 
   function getlocals() {
