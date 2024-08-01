@@ -3,7 +3,7 @@ import axios from "axios";
 const getToken = () => localStorage.getItem("token");
 
 const api = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://yelp-camp-server.vercel.app",
   headers: {
     "Content-Type": "application/json",
   },
